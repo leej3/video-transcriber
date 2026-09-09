@@ -14,6 +14,13 @@ from pathlib import Path
 from typing import Any, Iterable, Iterator
 
 
+def positive_int(value: str) -> int:
+    count = int(value)
+    if count < 2:
+        raise argparse.ArgumentTypeError("speaker count must be at least 2")
+    return count
+
+
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Transcribe a video or audio file with faster-whisper."
@@ -49,6 +56,18 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--compute-type",
         default="auto",
         help="faster-whisper compute type (default: auto)",
+    )
+    parser.add_argument(
+        "--no-diarize",
+        action="store_true",
+        help="omit local speaker clustering and use the original transcript format",
+    )
+    parser.add_argument(
+        "--speakers",
+        type=positive_int,
+        default=2,
+        metavar="N",
+        help="number of generic speakers to separate (default: 2)",
     )
     return parser.parse_args(argv)
 
@@ -98,11 +117,142 @@ def collect_segments(segments: Iterable[Any]) -> list[dict[str, Any]]:
     return [item for segment in segments if (item := segment_dict(segment))["text"]]
 
 
+def _decode_mono_audio(path: Path, target_rate: int = 16_000) -> tuple[Any, int]:
+    """Decode a media file to mono audio without invoking an external service."""
+
+    import av
+    import numpy as np
+    from scipy.signal import resample_poly
+
+    with av.open(str(path)) as container:
+        stream = next(
+            (item for item in container.streams if item.type == "audio"), None
+        )
+        if stream is None or stream.sample_rate is None:
+            raise RuntimeError(f"Media file has no audio stream: {path}")
+
+        chunks = []
+        for frame in container.decode(stream):
+            samples = frame.to_ndarray()
+            if samples.ndim == 2:
+                samples = samples.mean(axis=0)
+            if np.issubdtype(samples.dtype, np.integer):
+                samples = samples.astype(np.float32) / np.iinfo(samples.dtype).max
+            else:
+                samples = samples.astype(np.float32)
+            chunks.append(samples)
+
+    if not chunks:
+        raise RuntimeError(f"Media file contains no decodable audio: {path}")
+
+    audio = np.concatenate(chunks)
+    source_rate = int(stream.sample_rate)
+    if source_rate != target_rate:
+        audio = resample_poly(audio, target_rate, source_rate).astype(np.float32)
+    return audio, target_rate
+
+
+def _segment_features(
+    audio: Any, sample_rate: int, segments: list[dict[str, Any]]
+) -> Any:
+    """Create simple timbre features for each speech segment.
+
+    This is intentionally a small local heuristic, not a pretrained diarization
+    model. It is useful for separating distinct voices in a small conversation,
+    but it should not be treated as identity verification.
+    """
+
+    import librosa
+    import numpy as np
+
+    features = []
+    for segment in segments:
+        start = max(0, int((segment["start"] - 0.15) * sample_rate))
+        end = min(len(audio), int((segment["end"] + 0.15) * sample_rate))
+        clip = audio[start:end]
+        minimum_samples = int(0.5 * sample_rate)
+        if len(clip) < minimum_samples:
+            clip = np.pad(clip, (0, minimum_samples - len(clip)))
+
+        mfcc = librosa.feature.mfcc(
+            y=clip,
+            sr=sample_rate,
+            n_mfcc=13,
+            n_fft=512,
+            hop_length=160,
+            n_mels=26,
+        )
+        delta = librosa.feature.delta(mfcc)
+        features.append(
+            np.concatenate(
+                [
+                    mfcc.mean(axis=1),
+                    mfcc.std(axis=1),
+                    delta.mean(axis=1),
+                    delta.std(axis=1),
+                ]
+            )
+        )
+    return np.asarray(features, dtype=np.float32)
+
+
+def diarize_segments(
+    path: Path, segments: list[dict[str, Any]], speaker_count: int
+) -> list[dict[str, Any]]:
+    """Attach generic speaker labels using local acoustic-feature clustering."""
+
+    if len(segments) < speaker_count:
+        raise RuntimeError(
+            f"Need at least {speaker_count} transcript segments for diarization"
+        )
+
+    try:
+        import numpy as np
+        from sklearn.cluster import KMeans
+        from sklearn.preprocessing import StandardScaler
+    except ImportError as error:  # pragma: no cover - depends on environment
+        raise RuntimeError(
+            "Diarization dependencies are not installed; run `pixi install` first"
+        ) from error
+
+    audio, sample_rate = _decode_mono_audio(path)
+    features = _segment_features(audio, sample_rate, segments)
+    durations = np.asarray(
+        [segment["end"] - segment["start"] for segment in segments]
+    )
+    fit_indices = np.flatnonzero(durations >= 0.75)
+    if len(fit_indices) < speaker_count:
+        fit_indices = np.arange(len(segments))
+
+    scaled = StandardScaler().fit_transform(features)
+    clustering = KMeans(
+        n_clusters=speaker_count,
+        n_init=10,
+        random_state=0,
+    ).fit(scaled[fit_indices])
+    labels = clustering.predict(scaled)
+
+    return [
+        {**segment, "speaker": f"SPEAKER_{int(label):02d}"}
+        for segment, label in zip(segments, labels)
+    ]
+
+
 def text_output(segments: list[dict[str, Any]]) -> str:
-    return "\n\n".join(
-        f"[{seconds_to_timestamp(segment['start'])}] {segment['text']}"
-        for segment in segments
-    ) + "\n"
+    entries = []
+    for segment in segments:
+        speaker = segment.get("speaker")
+        if speaker:
+            timestamp = (
+                f"{seconds_to_timestamp(segment['start'])}–"
+                f"{seconds_to_timestamp(segment['end'])}"
+            )
+            entries.append(f"[{timestamp}] {speaker}\n{segment['text']}")
+        else:
+            entries.append(
+                f"[{seconds_to_timestamp(segment['start'])}] {segment['text']}"
+            )
+    return "\n\n".join(entries) + "\n"
 
 
 def srt_output(segments: list[dict[str, Any]]) -> str:
@@ -110,15 +260,26 @@ def srt_output(segments: list[dict[str, Any]]) -> str:
     for index, segment in enumerate(segments, start=1):
         start = seconds_to_timestamp(segment["start"], decimal=",")
         end = seconds_to_timestamp(segment["end"], decimal=",")
-        entries.append(f"{index}\n{start} --> {end}\n{segment['text']}\n")
+        speaker = f"{segment['speaker']}: " if segment.get("speaker") else ""
+        entries.append(f"{index}\n{start} --> {end}\n{speaker}{segment['text']}\n")
     return "\n".join(entries)
 
 
 def json_output(
     segments: list[dict[str, Any]], *, model: str, language: str | None
 ) -> str:
+    speakers = sorted(
+        {segment["speaker"] for segment in segments if "speaker" in segment}
+    )
+    payload: dict[str, Any] = {
+        "model": model,
+        "language": language,
+        "segments": segments,
+    }
+    if speakers:
+        payload["speakers"] = speakers
     return json.dumps(
-        {"model": model, "language": language, "segments": segments},
+        payload,
         ensure_ascii=False,
         indent=2,
     ) + "\n"
@@ -151,7 +312,10 @@ def transcribe(args: argparse.Namespace) -> tuple[list[dict[str, Any]], Any]:
             beam_size=5,
             vad_filter=True,
         )
-        return collect_segments(segments), info
+        collected = collect_segments(segments)
+        if not args.no_diarize:
+            collected = diarize_segments(path, collected, args.speakers)
+        return collected, info
 
     raise RuntimeError("Could not resolve the media input")
 

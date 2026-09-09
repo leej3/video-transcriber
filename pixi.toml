@@ -6,6 +6,8 @@ platforms = ["osx-arm64", "osx-64", "linux-64", "win-64"]
 python = "3.12.*"
 pip = ">=25.0,<26"
 av = ">=14,<19"
+librosa = ">=0.11,<1"
+scikit-learn = ">=1.6,<2"
 
 [pypi-dependencies]
 faster-whisper = ">=1.2,<2"
