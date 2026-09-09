@@ -1,0 +1,11 @@
+.pixi/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.mp4
+*.m4v
+*.mov
+*.mkv
+*.webm
+transcripts/
