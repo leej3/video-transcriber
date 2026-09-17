@@ -134,3 +134,15 @@ misses, empty hypotheses, normalization, excerpt clipping, and incompatible
 comparisons.
 Keep automatic CI free of model downloads and credentials.
 Explicit benchmark runs provide the real-model evidence.
+
+## Initial baseline
+
+Two warm `fast` runs are stored as small JSON records in `results/`.
+They take approximately 80 seconds per 60-second input and both score 88.71% WER
+and 47.63% DER.
+This intentionally retains the observed failure case; there is no quality
+threshold implied by successful pipeline execution.
+See [the validation record](../VALIDATION.md) for interpretation.
+Copy only selected `runs/<id>/result.json` metadata into this directory when
+establishing a new baseline.
+Full hypotheses and logs remain annexed.

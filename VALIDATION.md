@@ -61,7 +61,8 @@ concrete motivation for domain-vocabulary evaluation and downstream curation.
 
 ## Automated checks and remaining limits
 
-- 25 standard-library tests pass, including pipeline
+- 32 unique standard-library tests pass across the default and data
+  environments, including pipeline
   failure/partial-output behavior, speaker formatting, URL/playlist handling,
   portable launcher paths, token-file path handling, and aggregated setup
   actions without secret leakage.
@@ -82,3 +83,38 @@ concrete motivation for domain-vocabulary evaluation and downstream curation.
   Dependency locks alone do not establish reproducible inference.
 
 See [ROADMAP.md](ROADMAP.md) for the bounded evaluation and integration plan.
+
+## Reference-based AMI pilot
+
+The fixed `ami-es2004a-0000-0060-v1` fixture uses manual transcripts and the
+published AMI `only_words` RTTM on a 60-second headset-mix excerpt.
+The [protocol](benchmarks/README.md) defines normalization, overlap handling,
+zero collar, timing diagnostics, and provenance requirements.
+Full source media, derived references, transcripts, and logs are annexed in the
+separate `.datasets/benchmarks` DataLad dataset.
+
+Two warm-cache `fast` runs on Apple M4 at source commit `8f0a0b3` completed:
+
+| Measure | Run 1 | Run 2 |
+| --- | ---: | ---: |
+| Wall time, seconds | 79.799 | 79.994 |
+| Real-time factor | 1.330 | 1.333 |
+| Sampled process-tree RSS, GiB | 3.59 | 3.95 |
+| WER | 88.71% | 88.71% |
+| DER, zero collar, overlap included | 47.63% | 47.63% |
+| Reference / detected speakers | 3 / 2 | 3 / 2 |
+
+Both runs omitted 55 of 62 normalized reference words.
+Their seven matched words had a boundary MAE of 11.866 seconds.
+This is a poor result, preserved as an actionable baseline.
+Investigate ASR/VAD omissions and alignment behavior before drawing conclusions
+about the model or optimizing speed.
+A 60-second excerpt and two repetitions do not establish corpus-wide accuracy,
+statistical significance, or generalization to unseen data.
+
+The [selected small run summaries](benchmarks/results/) retain hashes, versions,
+settings, metrics, and timing evidence without copying transcripts or media.
+Compare them with
+`pixi run -e data benchmark compare benchmarks/results/*.json`.
+An initial uncontrolled-cache run took 151 seconds and stays in the DataLad
+history; it is not mixed into the warm-cache speed comparison.
