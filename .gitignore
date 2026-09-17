@@ -9,3 +9,8 @@ __pycache__/
 *.mkv
 *.webm
 transcripts/
+.agents/skills/
+apm_modules/
+*.run.json
+hugging-face-token.txt
+.datasets/
