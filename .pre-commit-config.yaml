@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: snapper
+        name: Snapper documentation formatting
+        entry: snapper --in-place --max-width 80
+        language: system
+        types: [markdown]
+        exclude: ^\.agents/
+      - id: reuse
+        name: REUSE licensing compliance
+        entry: pixi exec --spec reuse=6.2.0 -- reuse lint
+        language: system
+        pass_filenames: false
+        always_run: true

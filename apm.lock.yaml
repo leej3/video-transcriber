@@ -1,0 +1,238 @@
+lockfile_version: '1'
+generated_at: '2026-09-17T13:52:26.963065+00:00'
+apm_version: 0.29.0
+dependencies:
+- repo_url: con/skills
+  name: introduce-reuse-compliance
+  host: github.com
+  resolved_commit: 512e58d193d22a29ba37df26a25321b695890384
+  resolved_ref: 512e58d193d22a29ba37df26a25321b695890384
+  version: unknown
+  virtual_path: introduce-reuse-compliance
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/introduce-reuse-compliance
+  - .agents/skills/introduce-reuse-compliance/SKILL.md
+  deployed_file_hashes:
+    .agents/skills/introduce-reuse-compliance/SKILL.md: sha256:bc286bc60229150e83112a1d0058adb6e38de10d1b200f0ad67fbb7fda92e761
+  content_hash: sha256:a7e4a66d61a0ee37096ee361150dec083e9a2c8ea784e3544c8feb2cfc1b048e
+- repo_url: k-dense-ai/scientific-agent-skills
+  materialization_repo_url: K-Dense-AI/scientific-agent-skills
+  name: datalad
+  host: github.com
+  resolved_commit: 330c8e764435a731eff571e3efdda70b363d0792
+  resolved_ref: 330c8e764435a731eff571e3efdda70b363d0792
+  version: unknown
+  virtual_path: skills/datalad
+  is_virtual: true
+  package_type: claude_skill
+  deployed_files:
+  - .agents/skills/datalad
+  - .agents/skills/datalad/SKILL.md
+  - .agents/skills/datalad/references/data-access.md
+  - .agents/skills/datalad/references/provenance.md
+  - .agents/skills/datalad/references/publishing.md
+  deployed_file_hashes:
+    .agents/skills/datalad/SKILL.md: sha256:13b11667b0cb21d76ad5238fb62ff85fab823234d58bedfd86110f081aa1d164
+    .agents/skills/datalad/references/data-access.md: sha256:37cb3f35c82ba9dcb3d7be051d6dd6116c7d1fc19d0d4484510578e596083e11
+    .agents/skills/datalad/references/provenance.md: sha256:402f87d448e2369cb594d9a3002ec3acf0a7477a3908dbe39afd6a2ec4fe4a16
+    .agents/skills/datalad/references/publishing.md: sha256:859b7f496f49b9e63815dea3a91e57b04f2f029a8a8a30a2d15e39aad4c9599d
+  content_hash: sha256:8220f9db0e31590e7731f8fc3ce5a7e0fdc3adf95ff2451f5c8d73c5015a1548
+deployments:
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: null
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/LICENSE
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:8615116162cd92c67d7d28d8b1eb44dea103813914f8170ab811db3f3e2f9db2
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:eb373ebdd24e78fd27e0cf42b460e31bdaf5f6cd4d52da8c8ed01475b5d832ee
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/pixi.lock
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:d4a28bc87a09b61f7bdf741a75f68261f0374e0eaec644761670cb2daf43815b
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/pixi.toml
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:ea8901922261c008670b89317cce03622e7ae10367915b2066f93e1aa59fa768
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/references/maintenance.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:f0e639ef299036601fd4a8cbfd876ceafd671c3abf824398b2810785d6780443
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/references/operations.md
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:bd452aba41b19c6403e094762a6bb07138d620a711292c784011437e94146f99
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/scripts/__pycache__/launch.cpython-312.pyc
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:16df211c46ded62b259a41c88e7a2bed0ff43a384fa0e062ab9d0731e5c379c1
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/scripts/__pycache__/transcribe.cpython-312.pyc
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:80053155d5bbff22cce94146370a48c3a5f168b62a3b9e58ab2d20e42b11cfd3
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/scripts/__pycache__/transcribe.cpython-314.pyc
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:400ab12702b02982a111994e071baae7fb6eb727a5f1ac411866c455e5ff07bb
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/scripts/launch.py
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:74e9dac3984688732ef9d4b54f0013a01bf26ce9447ff194375ab2caa1d9916c
+- kind: project-relative
+  target: agents
+  value: .agents/skills/video-transcriber/scripts/transcribe.py
+  runtime: null
+  scope: project
+  owners:
+  - .
+  active_owner: .
+  content_hash: sha256:ef0f7bd8f11876cc75e9ed9386ca4f812a5338ec4844a07ddcb9e78382a5f8df
+- kind: project-relative
+  target: codex
+  value: .agents/skills/datalad
+  runtime: null
+  scope: project
+  owners:
+  - k-dense-ai/scientific-agent-skills/skills/datalad
+  active_owner: k-dense-ai/scientific-agent-skills/skills/datalad
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/datalad/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - k-dense-ai/scientific-agent-skills/skills/datalad
+  active_owner: k-dense-ai/scientific-agent-skills/skills/datalad
+  content_hash: sha256:13b11667b0cb21d76ad5238fb62ff85fab823234d58bedfd86110f081aa1d164
+- kind: project-relative
+  target: codex
+  value: .agents/skills/datalad/references/data-access.md
+  runtime: null
+  scope: project
+  owners:
+  - k-dense-ai/scientific-agent-skills/skills/datalad
+  active_owner: k-dense-ai/scientific-agent-skills/skills/datalad
+  content_hash: sha256:37cb3f35c82ba9dcb3d7be051d6dd6116c7d1fc19d0d4484510578e596083e11
+- kind: project-relative
+  target: codex
+  value: .agents/skills/datalad/references/provenance.md
+  runtime: null
+  scope: project
+  owners:
+  - k-dense-ai/scientific-agent-skills/skills/datalad
+  active_owner: k-dense-ai/scientific-agent-skills/skills/datalad
+  content_hash: sha256:402f87d448e2369cb594d9a3002ec3acf0a7477a3908dbe39afd6a2ec4fe4a16
+- kind: project-relative
+  target: codex
+  value: .agents/skills/datalad/references/publishing.md
+  runtime: null
+  scope: project
+  owners:
+  - k-dense-ai/scientific-agent-skills/skills/datalad
+  active_owner: k-dense-ai/scientific-agent-skills/skills/datalad
+  content_hash: sha256:859b7f496f49b9e63815dea3a91e57b04f2f029a8a8a30a2d15e39aad4c9599d
+- kind: project-relative
+  target: codex
+  value: .agents/skills/introduce-reuse-compliance
+  runtime: null
+  scope: project
+  owners:
+  - con/skills/introduce-reuse-compliance
+  active_owner: con/skills/introduce-reuse-compliance
+  content_hash: null
+- kind: project-relative
+  target: codex
+  value: .agents/skills/introduce-reuse-compliance/SKILL.md
+  runtime: null
+  scope: project
+  owners:
+  - con/skills/introduce-reuse-compliance
+  active_owner: con/skills/introduce-reuse-compliance
+  content_hash: sha256:bc286bc60229150e83112a1d0058adb6e38de10d1b200f0ad67fbb7fda92e761
+local_deployed_files:
+- .agents/skills/video-transcriber
+- .agents/skills/video-transcriber/LICENSE
+- .agents/skills/video-transcriber/SKILL.md
+- .agents/skills/video-transcriber/pixi.lock
+- .agents/skills/video-transcriber/pixi.toml
+- .agents/skills/video-transcriber/references/maintenance.md
+- .agents/skills/video-transcriber/references/operations.md
+- .agents/skills/video-transcriber/scripts/__pycache__/launch.cpython-312.pyc
+- .agents/skills/video-transcriber/scripts/__pycache__/transcribe.cpython-312.pyc
+- .agents/skills/video-transcriber/scripts/__pycache__/transcribe.cpython-314.pyc
+- .agents/skills/video-transcriber/scripts/launch.py
+- .agents/skills/video-transcriber/scripts/transcribe.py
+local_deployed_file_hashes:
+  .agents/skills/video-transcriber/LICENSE: sha256:8615116162cd92c67d7d28d8b1eb44dea103813914f8170ab811db3f3e2f9db2
+  .agents/skills/video-transcriber/SKILL.md: sha256:eb373ebdd24e78fd27e0cf42b460e31bdaf5f6cd4d52da8c8ed01475b5d832ee
+  .agents/skills/video-transcriber/pixi.lock: sha256:d4a28bc87a09b61f7bdf741a75f68261f0374e0eaec644761670cb2daf43815b
+  .agents/skills/video-transcriber/pixi.toml: sha256:ea8901922261c008670b89317cce03622e7ae10367915b2066f93e1aa59fa768
+  .agents/skills/video-transcriber/references/maintenance.md: sha256:f0e639ef299036601fd4a8cbfd876ceafd671c3abf824398b2810785d6780443
+  .agents/skills/video-transcriber/references/operations.md: sha256:bd452aba41b19c6403e094762a6bb07138d620a711292c784011437e94146f99
+  .agents/skills/video-transcriber/scripts/__pycache__/launch.cpython-312.pyc: sha256:16df211c46ded62b259a41c88e7a2bed0ff43a384fa0e062ab9d0731e5c379c1
+  .agents/skills/video-transcriber/scripts/__pycache__/transcribe.cpython-312.pyc: sha256:80053155d5bbff22cce94146370a48c3a5f168b62a3b9e58ab2d20e42b11cfd3
+  .agents/skills/video-transcriber/scripts/__pycache__/transcribe.cpython-314.pyc: sha256:400ab12702b02982a111994e071baae7fb6eb727a5f1ac411866c455e5ff07bb
+  .agents/skills/video-transcriber/scripts/launch.py: sha256:74e9dac3984688732ef9d4b54f0013a01bf26ce9447ff194375ab2caa1d9916c
+  .agents/skills/video-transcriber/scripts/transcribe.py: sha256:ef0f7bd8f11876cc75e9ed9386ca4f812a5338ec4844a07ddcb9e78382a5f8df

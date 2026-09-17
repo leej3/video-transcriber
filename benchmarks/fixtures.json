@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "id": "datalad-introduction",
+      "dataset_url": "https://datasets.datalad.org/repronim/ReproTube",
+      "dataset_revision": "30f15cf4c9796813a255b8d6e55c98b8599f7a4e",
+      "subdataset": "DataLad",
+      "subdataset_revision": "ba31935f59f41ff3804a05e49fda74bc48446f6e",
+      "path": "videos/2021/01/2021-01-04_What-is-DataLad/video.mkv",
+      "sha256": "7d456eed9511ffe8a4b4cf873a9a8d8be5b5b9f90488c015289a63361da78032",
+      "bytes": 40071026,
+      "source_url": "https://www.youtube.com/watch?v=IN0vowZ67vs",
+      "upstream_license_label": "creativeCommon",
+      "license_note": "Archived metadata label; verify exact terms before redistributing. Media is not included or relicensed.",
+      "reference_transcript": null,
+      "reference_speakers": null,
+      "purpose": "Local inference smoke test, not an accuracy benchmark"
+    }
+  ]
+}
