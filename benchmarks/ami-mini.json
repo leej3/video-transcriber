@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "id": "ami-es2004a-0000-0060-v1",
+  "meeting": "ES2004a",
+  "start_seconds": 0,
+  "end_seconds": 60,
+  "language": "en",
+  "license": "CC-BY-4.0",
+  "attribution": "AMI Consortium; Carletta et al., The AMI Meeting Corpus: A Pre-announcement (2006).",
+  "source_page": "https://groups.inf.ed.ac.uk/ami/download/",
+  "reference_note": "Manual word transcripts, with corpus word timings; only_words diarization references from the official test partition. A short regression excerpt, not a corpus-wide benchmark or proof of unseen-data generalization.",
+  "sources": [
+    {
+      "path": "raw/ES2004a.Mix-Headset.wav",
+      "url": "https://groups.inf.ed.ac.uk/ami/AMICorpusMirror/amicorpus/ES2004a/audio/ES2004a.Mix-Headset.wav",
+      "sha256": "3e2560b19bee6952c7c7ce041b0f1ea8a7ea9468044c4eea79d2a2c67e24ab0f"
+    },
+    {
+      "path": "raw/ami_public_manual_1.6.2.zip",
+      "url": "https://groups.inf.ed.ac.uk/ami/AMICorpusAnnotations/ami_public_manual_1.6.2.zip",
+      "sha256": "b56e5babb2496b8795deeeda7e71178d7fbc9963f94276cf2a3f4b56ebbc9f9d"
+    },
+    {
+      "path": "raw/ES2004a.rttm",
+      "url": "https://raw.githubusercontent.com/pyannote/AMI-diarization-setup/67c2d539286e89f68952d5dcf83912bd9f01dfae/only_words/rttms/test/ES2004a.rttm",
+      "sha256": "9869c6146c2fd9595403edb36c2caeda65c12ffa2c0af4ce48d6814b673fd5a9"
+    }
+  ]
+}

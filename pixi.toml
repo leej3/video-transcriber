@@ -26,12 +26,18 @@ git = ">=2.55.0,<3"
 
 [feature.data.pypi-dependencies]
 datalad = ">=1.2,<2"
+jiwer = "==4.0.0"
+pyannote-metrics = "==4.0.0"
+psutil = ">=7,<8"
 
 [feature.data.target.linux-64.dependencies]
 git-annex = "==10.20260601"
 
 [feature.data.target.osx-arm64-macos-14-0.pypi-dependencies]
 git-annex = "==10.20260601"
+
+[feature.data.tasks]
+benchmark = "python -B tools/benchmark.py"
 
 [environments]
 default = { features = [] }

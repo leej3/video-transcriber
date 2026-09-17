@@ -52,8 +52,10 @@ Do not bundle third-party media into this MIT repository.
 The initial fixture is a speech smoke test.
 It has no verified reference text or speaker annotations.
 Archived auto-captions are comparison material, not ground truth.
-Build a small consented reference set spanning single-speaker talks, interviews,
-overlapping speech, technical vocabulary, and noisy recordings.
+The [reference benchmark](benchmarks/README.md) now starts with a pinned AMI
+meeting excerpt carrying manual word and speaker references.
+Expand it to single-speaker talks, interviews, technical vocabulary, and noisy
+recordings.
 
 Record WER against corrected text, diarization error with declared
 overlap/collar conventions, speaker-count errors, timestamp errors, real-time factor, peak RAM, and failures. Separate installation/model
