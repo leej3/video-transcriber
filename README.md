@@ -121,3 +121,12 @@ Run `pixi run license-check` to validate REUSE compliance.
 The portable transcription skill includes its own license copy.
 External skills, model weights, dependencies, and downloaded media retain their
 own licenses; they are not relicensed by this project.
+
+## Reference benchmarks
+
+[The benchmark protocol](benchmarks/README.md) uses a pinned AMI meeting excerpt
+with manual word transcripts and published diarization references.
+Run `pixi run -e data benchmark prepare`, then `benchmark run` and
+`benchmark compare` as documented there.
+The separate DataLad dataset holds audio, references, logs, and full results;
+only small selected summaries belong in this repository.
