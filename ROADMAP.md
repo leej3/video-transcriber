@@ -21,16 +21,6 @@ and environment failures.
 Setup checks access; actual inference remains a separate acceptance check.
 Never silently remove diarization to bypass gating.
 
-The
-[ungated NVIDIA Sortformer v2.1 model](https://huggingface.co/nvidia/diar_streaming_sortformer_4spk-v2.1)
-is an evaluation candidate, not a second supported pipeline yet.
-It has a four-speaker ceiling, primarily English training, a NeMo dependency
-stack, and NVIDIA Open Model License terms.
-No account gate does not mean no model download or independence from Hugging
-Face hosting.
-Compare it only if Community-1 access materially prevents adoption; local speed
-and quality are currently unmeasured.
-
 ## Feedback from annextube
 
 The
