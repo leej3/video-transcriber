@@ -1,0 +1,10 @@
+name: video-transcriber
+version: "0.2.0"
+type: skill
+includes: auto
+targets:
+  - codex
+dependencies:
+  apm:
+    - con/skills/introduce-reuse-compliance#512e58d193d22a29ba37df26a25321b695890384
+    - K-Dense-AI/scientific-agent-skills/skills/datalad#330c8e764435a731eff571e3efdda70b363d0792

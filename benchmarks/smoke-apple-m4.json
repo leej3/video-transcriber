@@ -1,0 +1,43 @@
+{
+  "fixture": "datalad-introduction",
+  "date": "2026-09-17",
+  "hardware": "Apple M4, 32 GiB RAM",
+  "reference_metrics": null,
+  "note": "One local-file smoke run. Includes model loading/downloads, not a warm-cache benchmark. No verified speaker/text reference. Peak memory not measured.",
+  "report": {
+    "schema_version": 1,
+    "versions": {
+      "runner": "0.2.0",
+      "python": "3.12.14",
+      "whisperx": "3.8.6",
+      "faster-whisper": "1.2.1",
+      "pyannote.audio": "4.0.7",
+      "torch": "2.8.0",
+      "yt-dlp": "2026.8.19"
+    },
+    "quality": "fast",
+    "system": "Darwin",
+    "machine": "arm64",
+    "status": "complete",
+    "stage": "complete",
+    "timings_seconds": {
+      "preflight": 6.181,
+      "input": 0.503,
+      "transcription": 17.131,
+      "alignment": 14.502,
+      "diarization": 296.26
+    },
+    "diarization": "complete",
+    "model": "small",
+    "device": "cpu",
+    "compute_type": "int8",
+    "beam_size": 1,
+    "batch_size": 4,
+    "speakers": null,
+    "min_speakers": null,
+    "max_speakers": null,
+    "diarization_model": "pyannote/speaker-diarization-community-1",
+    "duration_seconds": 227.091,
+    "elapsed_seconds": 334.783
+  }
+}
